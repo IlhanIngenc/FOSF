@@ -4,7 +4,6 @@ from scipy.optimize import linprog
 from src.utils.solver_utils import format_constraints, check_solution_status
 from src.models.base_model import OptimizationModel
 
-# Ensure the 'src' folder is in the Python path for imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
 
