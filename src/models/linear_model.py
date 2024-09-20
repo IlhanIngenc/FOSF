@@ -14,7 +14,6 @@ class LinearOptimizationModel(OptimizationModel):
     """
 
     def __init__(self):
-        # Initialize the objective function and constraints
         self.objective = None
         self.constraints = {'lhs': [], 'rhs': []}
 
@@ -49,25 +48,21 @@ class LinearOptimizationModel(OptimizationModel):
         :return: The optimal solution (values of decision variables).
         """
 
-        # Debugging: Print the objective function and constraints for verification
         print(f"Objective function: {self.objective}")
         print(f"Constraints LHS: {self.constraints['lhs']}")
         print(f"Constraints RHS: {self.constraints['rhs']}")
 
-        # Format the constraints for the solver using the helper function
         A_ub, b_ub = format_constraints(self.constraints['lhs'], self.constraints['rhs'])
 
         # Solve the optimization problem using the 'highs' method
         result = linprog(c=self.objective, A_ub=A_ub, b_ub=b_ub, method='highs')
 
-        # Debugging: Print the status and message from the solver to assess success or failure
         print(f"Optimization status: {result.status}")
         print(f"Optimization message: {result.message}")
 
-        # Check the solution status using the helper function
         check_solution_status(result)
 
         if result.success:
-            return result.x  # Return the optimal solution
+            return result.x  # Returns the optimal solution
         else:
             raise ValueError("Linear optimization failed to find a solution.")
